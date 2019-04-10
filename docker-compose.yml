@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: project_db
+    volumes:
+      - data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: project_cms
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+  wordpress:
+    network_mode: 'bridge'
+    container_name: 'project_wordpress'
+    image: wordpress:latest
+    depends_on:
+      - db
+    ports:
+      - '8000:80'
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+    working_dir: /var/www/html
+    volumes:
+      - ./data:/data
+      - ./web:/app
+
+volumes:
+  data: {}
