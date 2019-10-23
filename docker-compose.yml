@@ -43,7 +43,7 @@ services:
     restart: always
     volumes:
       - ./web:/var/www/html:rw,cached
-      - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./config/php:/usr/local/etc/php/conf.d
   # mailcatcher:
   #   image: schickling/mailcatcher
   #   ports:
