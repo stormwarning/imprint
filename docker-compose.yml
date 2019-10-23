@@ -1,55 +1,55 @@
 version: '3.5'
 
 services:
-  db:
-    image: mysql:5.7
-    container_name: project_db
-    # volumes:
-    #   - data:/var/lib/mysql
-    # ports:
-    #   - '3306:3306'
+  nginx:
+    container_name: project-nginx
+    depends_on:
+      - wordpress
+    image: nginx:latest
+    ports:
+      - '80:80'
+      - '443:443'
     restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./web:/var/www/html:rw,cached
+      - ./certs:/etc/certs
+
+  db:
+    container_name: project-db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: project_cms
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
-    networks:
-      - localwp
+    image: mariadb
+    ports:
+      - '3306:3306'
+    restart: always
+    volumes:
+      - './data/db:/var/lib/mysql:delegated'
 
   wordpress:
-    container_name: project_wordpress
-    image: wordpress:latest
-    ports:
-      - '8080:80'
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    container_name: project-wordpress
     depends_on:
       - db
-    restart: always
     environment:
-      WORDPRESS_DB_HOST: project_db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: project_cms
-    working_dir: /var/www/html
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_PASSWORD: password
+    image: docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
+    restart: always
     volumes:
-      - ./data:/data
-      - ./web:/app
-    networks:
-      - localwp
-
-  mailcatcher:
-    image: schickling/mailcatcher
-    ports:
-      - '1025:1025'
-      - '1080:1080'
-    environment:
-      MAILCATCHER_PORT: 1025
-    networks:
-      - localwp
-
-networks:
-  localwp:
-    name: localwp
-
-volumes:
-  data: {}
+      - ./web:/var/www/html:rw,cached
+      - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
+  # mailcatcher:
+  #   image: schickling/mailcatcher
+  #   ports:
+  #     - '1025:1025'
+  #     - '1080:1080'
+  #   environment:
+  #     MAILCATCHER_PORT: 1025
+  #   networks:
+  #     - localwp

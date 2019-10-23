@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-CONTAINER_NAME=project_wordpress
+CONTAINER_NAME=project-wordpress
 IMAGE_NAME=docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
 
 build:
