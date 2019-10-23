@@ -3,7 +3,7 @@
 SHELL := /bin/bash
 
 CONTAINER_NAME=project_wordpress
-IMAGE_NAME=project:wordpress
+IMAGE_NAME=docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
 
 build:
 	cp composer.json ./build/composer.json
@@ -20,3 +20,6 @@ enter:
 
 clean:
 	docker-compose down
+
+push:
+    docker push $(IMAGE_NAME)
