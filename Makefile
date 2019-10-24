@@ -3,11 +3,12 @@
 SHELL := /bin/bash
 
 CONTAINER_NAME=project-wordpress
-IMAGE_NAME=docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
+# IMAGE_NAME=docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
+IMAGE_NAME=project:wordpress
 
 build:
-	cp composer.json ./build/composer.json
-	docker build -t $(IMAGE_NAME) ./build
+	cp composer.json ./docker/composer.json
+	docker build -t $(IMAGE_NAME) ./docker
 
 start:
 	docker-compose up -d wordpress || echo 'Container is already up!'
