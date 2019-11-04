@@ -12,7 +12,7 @@ services:
     restart: always
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./web:/var/www/html:rw,cached
+      - ./src:/var/www/html:rw,cached
       - ./certs:/etc/certs
 
   db:
@@ -39,11 +39,19 @@ services:
       WORDPRESS_TABLE_PREFIX: wp_
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_PASSWORD: password
-    image: docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
+    # image: docker.pkg.github.com/OWNER/REPOSITORY/project:wordpress
+    image: project:wordpress
     restart: always
     volumes:
-      - ./web:/var/www/html:rw,cached
+      - ./src:/var/www/html:rw,cached
       - ./config/php:/usr/local/etc/php/conf.d
+  # composer:
+  #   container_name: project-composer
+  #   image: composer/composer
+  #   restart: 'no'
+  #   volumes:
+  #     - ./src:/var/www/html:rw,cached
+  #   working_dir: /var/www/html
   # mailcatcher:
   #   image: schickling/mailcatcher
   #   ports:

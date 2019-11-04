@@ -2,7 +2,9 @@
   "name": "website",
   "description": "WordPress backend",
   "config": {
-    "preferred-install": "dist"
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
   },
   "repositories": [
     {
@@ -11,8 +13,13 @@
     }
   ],
   "require": {
-    "php": "7.1.x",
-    "composer/installers": "1.4.x"
+    "php": "7.2.x",
+    "composer/installers": "1.4.x",
+    "vlucas/phpdotenv": "3.6.x",
+    "oscarotero/env": "1.2.x",
+    "roots/wordpress": "5.2.x",
+    "roots/wp-config": "1.0.x",
+    "roots/wp-password-bcrypt": "1.0.x"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.0.x"
@@ -24,5 +31,13 @@
       "web/content/themes/{$name}/": ["type:wordpress-theme"]
     },
     "wordpress-install-dir": "web/wp"
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "php -r \"copy('.env.example', '.env');\""
+    ],
+    "test": [
+      "phpcs"
+    ]
   }
 }
