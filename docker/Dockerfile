@@ -9,6 +9,7 @@ RUN set -ex; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
+    wget \
     libjpeg-dev \
     libmagickwand-dev \
     libpng-dev \
@@ -60,5 +61,15 @@ RUN set -ex; \
 #     && apt-get clean \
 #     && mkdir /var/www/.wp-cli \
 #     && chown www-data:www-data /var/www/.wp-cli
+
+# Install Composer
+ADD install.sh /opt/
+RUN chmod 755 /opt/install.sh
+RUN /opt/install.sh
+
+# Install wp-cli
+RUN curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x /bin/wp-cli.phar
+RUN cd /bin && mv wp-cli.phar wp
 
 VOLUME /var/www/html
