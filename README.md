@@ -12,11 +12,15 @@
 ├── docker/
 │   └── Dockerfile
 ├── logs/
-├── web/
-│   ├── content/
-│   │   └── themes/
-│   └── wp/
-├── composer.json
+├── src/
+│   ├── config/
+│   ├── vendor/
+│   ├── web/
+│   │   ├── content/
+│   │   │   └── themes/
+│   │   └── wp/
+│   ├── composer.json
+│   └── wp-cli.yml
 ├── docker-compose.yml
 └── Makefile
 ```
@@ -38,18 +42,34 @@ Database dump file is imported from & exported to this dir.
 
 Entry point for the custom Docker container.
 
-#### `web/`
+#### `src/config/`
 
-The webserver root dir. WordPress is installed to `web/wp` and development work
-is done in `web/content`.
+WordPress environment-specific configuration files.
 
-#### `composer.json`
+#### `src/web/`
+
+The webserver root dir. WordPress is installed to `src/web/wp` and development
+work is done in `src/web/content`.
+
+#### `src/composer.json`
 
 PHP and WordPress dependencies.
 
 ## Initial setup
 
-tk.
+After cloning the repository, build and start the Docker services:
+
+```sh
+# Build the custom container
+make build 
+
+# Start the Docker services
+make start
+
+# Install Composer dependencies
+# @see https://hub.docker.com/_/composer
+make install
+```
 
 ## Acknowledgements
 
