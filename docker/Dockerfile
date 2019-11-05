@@ -41,32 +41,6 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update && apt-get install -y \
-#     git \
-#     subversion \
-#     wget \
-#     libxml2-dev \
-#     ssmtp \
-#     imagemagick \
-#     libmagickwand-dev \
-#     unzip \
-#     iproute2 \
-#     libicu-dev \
-#     && pecl install imagick \
-#     && docker-php-ext-enable imagick \
-#     && docker-php-ext-install soap intl \
-#     && echo "mailhub=mailcatcher:1025\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
-#     && apt-get remove -y libmagickwand-dev libxml2-dev libicu-dev \
-#     && apt-get autoremove -y \
-#     && apt-get clean \
-#     && mkdir /var/www/.wp-cli \
-#     && chown www-data:www-data /var/www/.wp-cli
-
-# Install Composer
-ADD install.sh /opt/
-RUN chmod 755 /opt/install.sh
-RUN /opt/install.sh
-
 # Install wp-cli
 RUN curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x /bin/wp-cli.phar

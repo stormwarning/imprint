@@ -45,13 +45,13 @@ services:
     volumes:
       - ./src:/var/www/html:rw,cached
       - ./config/php:/usr/local/etc/php/conf.d
-  # composer:
-  #   container_name: project-composer
-  #   image: composer/composer
-  #   restart: 'no'
-  #   volumes:
-  #     - ./src:/var/www/html:rw,cached
-  #   working_dir: /var/www/html
+  composer:
+    container_name: project-composer
+    image: composer/composer
+    restart: 'no'
+    volumes:
+      - ./src:/var/www/html:rw,cached
+    working_dir: /var/www/html
   # mailcatcher:
   #   image: schickling/mailcatcher
   #   ports:

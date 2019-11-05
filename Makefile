@@ -7,12 +7,13 @@ CONTAINER_NAME = project-wordpress
 IMAGE_NAME = project:wordpress
 
 build:
-	# cp composer.json ./docker/composer.json
 	docker build -t $(IMAGE_NAME) ./docker
 
 start:
-	# docker-compose up -d wordpress || echo 'Container is already up!'
 	docker-compose up -d || echo 'Container is already up!'
+
+install:
+    docker run --rm --interactive --tty --volume $PWD/src:/app composer install
 
 stop:
 	docker-compose stop
