@@ -1,9 +1,9 @@
 # Dependencies
 node_modules
-web/content/plugins
-web/content/uploads
-web/wp
+src/vendor
+src/web/content/plugins
+src/web/content/uploads
+src/web/wp
 
 # Build artifacts
 data/db
-docker/composer.json
