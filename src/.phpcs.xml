@@ -26,6 +26,7 @@
         <!--
             Exclude WordPress sniffs as needed here.
         -->
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
     </rule>
 
     <!-- Let's also check that everything is properly documented. -->
