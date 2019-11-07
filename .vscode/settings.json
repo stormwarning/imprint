@@ -2,6 +2,7 @@
   "phpcs.executablePath": "./src/vendor/bin/phpcs",
   "phpcs.showSources": true,
   "phpcs.standard": "./src/.phpcs.xml",
+  "phpcbf.executablePath": "./src/vendor/bin/phpcbf",
   "phpcbf.onsave": true,
   "phpcbf.standard": "./src/.phpcs.xml"
 }
