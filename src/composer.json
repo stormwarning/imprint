@@ -21,7 +21,7 @@
     "roots/wp-password-bcrypt": "1.0.x"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "3.0.x",
+    "squizlabs/php_codesniffer": "3.5.x",
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "wp-coding-standards/wpcs": "*"
   },
